@@ -4,6 +4,9 @@ import json
 transactions = pd.read_json("../data/raw/transactions.json", encoding = "UTF-8")
 
 transactions["offer_id"] = transactions["value"].apply(lambda x: x.get("offer id") if isinstance(x, dict) else None)
+transactions["offer_id2"] = transactions["value"].apply(lambda x: x.get("offer_id") if isinstance(x, dict) else None)
+transactions['offer_id'] = transactions['offer_id'].fillna(transactions['offer_id2'])
+
 transactions["reward"] = transactions["value"].apply(lambda x: x.get("reward") if isinstance(x, dict) else None)
 transactions["amount"] = transactions["value"].apply(lambda x: x.get("amount") if isinstance(x, dict) else None)
 
